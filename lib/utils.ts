@@ -65,6 +65,7 @@ export const formatDateTime = (dateString: Date) => {
   };
 };
 
+// TODO#1: Add camaroon currency
 export function formatAmount(amount: number): string {
   const formatter = new Intl.NumberFormat("en-US", {
     style: "currency",
