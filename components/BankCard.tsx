@@ -13,9 +13,7 @@ const BankCard = ({
       <Link href="/" className="bank-card">
         <div className="bank-card_content">
           <div>
-            <h1 className="text-16 font-semibold text-white">
-              {account.name || userName}
-            </h1>
+            <h1 className="text-16 font-semibold text-white">{userName}</h1>
             <p className="font-ibm-plex-serif font-black text-white">
               {formatAmount(account.currentBalance)}
             </p>
@@ -26,8 +24,7 @@ const BankCard = ({
               <h2 className="text-12 font-semibold text-white">●● / ●●</h2>
             </div>
             <p className="text-14 font-semibold tracking-[1.1px] text-white">
-              ●●●● ●●●● ●●●● ●●●●
-              <span className="text-16">{1234}</span>
+              ●●●● ●●●● ●●●● ●●●● <span className="text-14">{1234}</span>
             </p>
           </article>
         </div>
