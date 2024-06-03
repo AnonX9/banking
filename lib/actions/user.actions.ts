@@ -12,7 +12,9 @@ import { addFundingSource, createDwollaCustomer } from './dwolla.actions';
 const {
     APPWRITE_DATABASE_ID: DATABASE_ID,
     APPWRITE_USER_COLLECTION_ID: USER_COLLECTION_ID,
-    APPWRITE_BANK_COLLECTION_ID: BANK_COLLECTION_ID
+    APPWRITE_BANK_COLLECTION_ID: BANK_COLLECTION_ID,
+    PLAID_CLIENT_ID: CLIENT_ID,
+    PLAID_SECRET: SECRET
 } = process.env;
 
 export const signIn = async ({ email, password }: signInProps) => {
@@ -78,7 +80,7 @@ export const signUp = async ({ password, ...userData }: SignUpParams) => {
         return parseStringify(newUser);
 
     } catch (error) {
-        console.error('SingUp Error', error);
+        console.error('SingUp Error : ', error);
     }
 }
 
@@ -106,15 +108,16 @@ export const logoutAccount = async () => {
 export const createLinkToken = async (user: User) => {
     try {
         const tokenParams = {
+            client_id: CLIENT_ID,
+            secret: SECRET,
             user: {
                 client_user_id: user.$id
             },
             client_name: `${user.firstName} ${user.lastName}`,
             products: ['auth'] as Products[],
             language: 'en',
-            country_codes: ['US', 'CM'] as CountryCode[]
+            country_codes: ['US'] as CountryCode[],
         };
-
         const response = await plaidClient.linkTokenCreate(tokenParams);
 
         return parseStringify({ linkToken: response.data.link_token });
